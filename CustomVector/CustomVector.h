@@ -14,16 +14,17 @@ private:
     using  reference          = T&;
     using  const_reference    = const T&;
     using  const_iterator     = const T*;
+    using  size_type          = size_t;
 
     value_type* data_;
-    size_t size_;
-    size_t capacity_;
+    size_type size_;
+    size_type capacity_;
     
 
     void resize() {
-        size_t newCap_ = capacity_ == 0 ? 1 : capacity_ * 2;
+        size_type newCap_ = capacity_ == 0 ? 1 : capacity_ * 2;
         value_type* newdata_ = new value_type[newCap_];
-        for (size_t i {}; i < size_; ++i) {
+        for (size_type i {}; i < size_; ++i) {
             newdata_[i] = data_[i];
         }
         delete[] data_;
@@ -32,11 +33,11 @@ private:
     }
 
 
-    void reserve(size_t newCap_) {
+    void reserve(size_type newCap_) {
         if (newCap_ <= capacity_) return;
         value_type* newdata_ = new value_type[newCap_];
         if (data_ != nullptr) {
-            for (size_t i{}; i < size_; ++i) newdata_[i] = data_[i];
+            for (size_type i{}; i < size_; ++i) newdata_[i] = data_[i];
         }
         delete[] data_;
         data_ = newdata_;
@@ -49,7 +50,7 @@ public:
 
   Vector(const Vector<value_type>& other) : size_(other.size_), capacity_(other.capacity_) {
     data_ = new T[capacity_];
-    for (size_t i {}; i < size_; ++i) {
+    for (size_type i {}; i < size_; ++i) {
       data_[i] = other.data_[i];
     }
   }
@@ -61,6 +62,12 @@ public:
     }
   }
 
+  Vector(const size_type count_, const value_type _val) : data_(nullptr),  size_(0), capacity_(0){
+    reserve(count_);
+    for (size_type i{}; i < capacity_; ++i) {
+      push_back(_val);
+    }
+  }
 
   Vector& operator=(const Vector<value_type>& other) {
     if (this == &other) return *this;
@@ -71,7 +78,7 @@ public:
     capacity_ = other.capacity_;
 
     data_ = new value_type[capacity_];
-    for (size_t i {}; i < size_; ++i) {
+    for (size_type i {}; i < size_; ++i) {
       data_[i] = other.data_[i];
     }
     return *this;
@@ -81,7 +88,6 @@ public:
     // clear();
     delete[] data_;
   }
-
 
 
   void push_back(value_type val) {
@@ -104,23 +110,23 @@ public:
   
   void clear() {
     if(size_ == 0) return;
-    for (size_t i {}; i < size_; ++i) {
+    for (size_type i {}; i < size_; ++i) {
       data_[i].~value_type();
     }
     size_ = 0;
   }
 
-  constexpr size_t
+  constexpr size_type
   capacity() const noexcept { return capacity_; }
 
-  constexpr size_t
+  constexpr size_type
   size() const noexcept { return size_; }
 
 
   void inspect() {
     value_type* ptr = data_;
     if (ptr != nullptr) {
-      for (size_t i {}; i < size_; ++i) {
+      for (size_type i {}; i < size_; ++i) {
         cout << "Address: " << ptr + i << " -> Value: " << *(ptr + i) << endl;
       }
     }
