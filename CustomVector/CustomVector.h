@@ -54,7 +54,7 @@ public:
     }
   }
 
-  Vector(const initializer_list<value_type>& items) : size_(0), capacity_(0), data_(nullptr) {
+  Vector(const initializer_list<value_type>& items) :  data_(nullptr), size_(0), capacity_(0){
     reserve(items.size());
     for (auto&item : items) {
       push_back(item);
@@ -110,13 +110,11 @@ public:
     size_ = 0;
   }
 
-  size_t capacity() {
-    return capacity_;
-  }
+  constexpr size_t
+  capacity() const noexcept { return capacity_; }
 
-  size_t size() {
-    return size_;
-  }
+  constexpr size_t
+  size() const noexcept { return size_; }
 
 
   void inspect() {
