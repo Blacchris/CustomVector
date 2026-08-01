@@ -10,13 +10,15 @@ class Vector {
 
 private:
 
-    using  value_type   = T;
-    using  reference    = T&;
-    using  const_reference = const T&;
+    using  value_type         = T;
+    using  reference          = T&;
+    using  const_reference    = const T&;
+    using  const_iterator     = const T*;
 
+    value_type* data_;
     size_t size_;
     size_t capacity_;
-    value_type* data_;
+    
 
     void resize() {
         size_t newCap_ = capacity_ == 0 ? 1 : capacity_ * 2;
@@ -43,7 +45,7 @@ private:
   
 
 public:
-  Vector() : data_(nullptr), size_(0), capacity_(0) {};
+  Vector() : data_(nullptr), size_(0), capacity_(0) {}
 
   Vector(const Vector<value_type>& other) : size_(other.size_), capacity_(other.capacity_) {
     data_ = new T[capacity_];
@@ -79,6 +81,7 @@ public:
     // clear();
     delete[] data_;
   }
+
 
 
   void push_back(value_type val) {
@@ -126,5 +129,6 @@ public:
   }
 
 }; 
+
 
 
