@@ -16,9 +16,9 @@ private:
     using  const_iterator     = const T*;
     using  size_type          = size_t;
 
-    value_type* data_;
-    size_type size_;
-    size_type capacity_;
+    value_type*   data_;
+    size_type     size_;
+    size_type     capacity_;
     
 
     void resize() {
@@ -48,25 +48,28 @@ private:
 public:
   Vector() : data_(nullptr), size_(0), capacity_(0) {}
 
-  Vector(const Vector<value_type>& other) : size_(other.size_), capacity_(other.capacity_) {
-    data_ = new T[capacity_];
-    for (size_type i {}; i < size_; ++i) {
-      data_[i] = other.data_[i];
-    }
+  Vector(const Vector<value_type>& other) 
+    : size_(other.size_), capacity_(other.capacity_) {
+      data_ = new T[capacity_];
+      for (size_type i {}; i < size_; ++i) {
+        data_[i] = other.data_[i];
+      }
   }
 
-  Vector(const initializer_list<value_type>& items) :  data_(nullptr), size_(0), capacity_(0){
-    reserve(items.size());
-    for (auto&item : items) {
-      push_back(item);
-    }
+  Vector(const initializer_list<value_type>& items) 
+    :  data_(nullptr), size_(0), capacity_(0){
+      reserve(items.size());
+      for (const auto&item : items) {
+        push_back(item);
+      }
   }
 
-  Vector(const size_type count_, const value_type _val) : data_(nullptr),  size_(0), capacity_(0){
-    reserve(count_);
-    for (size_type i{}; i < capacity_; ++i) {
-      push_back(_val);
-    }
+  Vector(const size_type count_, const value_type _val) 
+    : data_(nullptr),  size_(0), capacity_(0){
+      reserve(count_);
+      for (size_type i{}; i < capacity_; ++i) {
+        push_back(_val);
+      }
   }
 
   Vector& operator=(const Vector<value_type>& other) {
