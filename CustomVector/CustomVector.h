@@ -1,19 +1,20 @@
 #pragma once
 #include <iostream>
 #include <initializer_list>
+#include <cassert>
 
 
 using namespace std;
 
-template<typename T>
+template<typename _T>
 class Vector {
 
 private:
 
-    using  value_type         = T;
-    using  reference          = T&;
-    using  const_reference    = const T&;
-    using  const_iterator     = const T*;
+    using  value_type         = _T;
+    using  reference          = _T&;
+    using  const_reference    = const _T&;
+    using  const_iterator     = const _T*;
     using  size_type          = size_t;
 
     value_type*   data_;
@@ -50,7 +51,7 @@ public:
 
   Vector(const Vector<value_type>& other) 
     : size_(other.size_), capacity_(other.capacity_) {
-      data_ = new T[capacity_];
+      data_ = new value_type[capacity_];
       for (size_type i {}; i < size_; ++i) {
         data_[i] = other.data_[i];
       }
@@ -107,6 +108,7 @@ public:
   }
 
   reference operator[](int index) {
+    assert(index >= 0 && index < size_);
     return data_[index];
   }
 
